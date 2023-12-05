@@ -33,7 +33,7 @@ const userSchema = new Schema({
     myEvents: {
         type: String,
         required: false
-    },
+    }
 }, { timestamps: true })
 
 userSchema.statics.login = async function(email, password) {
@@ -78,5 +78,15 @@ userSchema.statics.signup = async function(email, password, userName, fullName, 
     return userData
 }
 
+userSchema.statics.findMatches = async function(userSports) {
+    const users = await this.find({
+        sports: { $in: userSports }
+    });
+    const result = [];
+    await users.forEach(user => {
+      result.push(user);
+    });
+    return result;
+}
 
 module.exports = mongoose.model('User', userSchema)
