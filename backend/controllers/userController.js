@@ -47,8 +47,18 @@ const getUsers = async(req, res) => {
     //res.status(200).json(users)
 }
 
+const getLeaderboard = async(req, res) => {
+    const users = await User.find().sort({ eventsCreated: -1 })
+    if (!users) {
+        res.status(400).json({error})
+    }
+    else {
+        res.status(200).json(users)
+    }
+}
 
 module.exports = { 
     loginUser, 
     signupUser, 
-    getUsers}
+    getUsers,
+    getLeaderboard}
